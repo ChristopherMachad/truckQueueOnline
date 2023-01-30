@@ -1,0 +1,70 @@
+import tkinter as tk
+from tkinter import ttk, Label, PhotoImage
+from tkinter.ttk import Treeview
+from tkinter import *
+import json
+import tkinter.messagebox as messagebox
+from tkinter import ttk
+from turtle import width
+from typing import Self
+import requests
+
+
+class TASAINDODAJAULAOMONSTRO():
+    def loop_att(self):
+        self.att()
+        self.tela.after(1, self.loop_att) # 5000 milliseconds = 5 seconds
+
+    
+    def __init__(self):
+        #Var principal de leitura do banco
+        #Em varias funções precisei re-fazer a conexão. Preciso melhorar o conhecimento em variaveis globai e locais.
+        self.base_url = 'https://filachifrudos-default-rtdb.firebaseio.com/'
+
+        self.tela = Tk()
+        self.tela.geometry('600x600')
+        #self.tela.resizable(width=FALSE, height=FALSE)
+        self.img = PhotoImage(file=r'C:\Users\chris\OneDrive\Área de Trabalho\waitonline\frontend_fila.png')
+        
+          #frames 
+        
+        self.frame_tela = Label(self.tela, image= self.img)
+        self.frame_tela.pack()
+
+        self.atualiza_button = Button( width=10, bd= 0, command = self.loop_att, bg = 'black', fg= 'white')
+        self.atualiza_button.place( x = 100, y = 486, height=20)
+        
+        
+
+        #tabelas Treeview. Tem vida própria. Não entendi o motivo mas só funciona se o frame for o usado. Não consigo movimentar ela direito.
+        self.tree = Treeview(self.tela, columns=("plate", "transp"))
+        
+        self.tree.heading("#0", text="ID")
+        self.tree.heading("plate", text="Placa")
+        self.tree.heading("transp", text="Transportadora")
+        self.tree.column("#0", anchor= 'e',  width=5, minwidth=50, stretch=False)
+        self.tree.column("plate", width=100, minwidth=50, stretch=False)
+        self.tree.column("transp", width=100, minwidth=50, stretch=False)
+        self.tree.place (x = 50, y=100, width=500)
+        
+        self.att()
+        
+        self.tela.after(100000, self.loop_att) # 2000 milliseconds = 2 seconds
+        # deixa a tela sempre em primeiro plano( para ediçao de imagem) self.tela.attributes("-topmost", True)
+        self.tela.mainloop()
+
+     # funcao para atualizar tree
+    
+
+    def att(self):
+        url = "https://filachifrudos-default-rtdb.firebaseio.com/pedido.json"
+        response = requests.get(url)
+        data = response.json()
+        self.tree.delete(*self.tree.get_children())
+        for order_id, order_data in data.items():
+            if not self.tree.exists(order_id):
+                self.tree.insert("", "end", order_id, text=order_id)
+                self.tree.set(order_id, "plate", order_data["plate"])
+                self.tree.set(order_id, "transp", order_data["transp"])
+
+program = TASAINDODAJAULAOMONSTRO()

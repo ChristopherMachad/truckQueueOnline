@@ -114,12 +114,13 @@ class TASAINDODAJAULAOMONSTRO():
         prod = self.produto_ent.get()
         truck = {"plate": placa, "transp": transp, "motorista": motor, "produto":prod}
         requests.post(f'{self.base_url}/pedido.json', json=truck)
-                  
+   
+    #INFERNO DE FUNÇÃO DO CARALHO               
     def delete(self):
         selected_item = self.tree.selection()[0]
         base_url = 'https://filachifrudos-default-rtdb.firebaseio.com/pedido.json'
-
-        # Delete
+        
+        # Delete, Essa merda não deleta do banco de dados, apenas da treeview! infernooooooooo
         url = f'{base_url}{selected_item}.json'
         requests.delete(url)
         self.tree.delete(selected_item)

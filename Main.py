@@ -4,16 +4,11 @@ from tkinter.ttk import Treeview
 from tkinter import *
 import json
 import tkinter.messagebox as messagebox
-from tkinter import ttk
-from turtle import width
-from typing import Self
 import requests
 
 
 class TASAINDODAJAULAOMONSTRO():
-      #----cores----
-    __gray        = '#a7acb6' #cinza
-    __gray_one    = '#333333' #cinza denovo
+     
 
     
     def __init__(self):

@@ -19,7 +19,7 @@ class TASAINDODAJAULAOMONSTRO():
         self.tela = Tk()
         self.tela.geometry('430x490')
         #self.tela.resizable(width=FALSE, height=FALSE)
-        self.img = PhotoImage(file=r'C:\Users\chris\OneDrive\Área de Trabalho\waitonline\frontend_admin.png')
+        self.img = PhotoImage(file=r'C:\Users\balanca.algodoeira\Desktop\waitonline\frontend_admin.png')
         
           #frames 
         
@@ -113,11 +113,12 @@ class TASAINDODAJAULAOMONSTRO():
     #INFERNO DE FUNÇÃO DO CARALHO               
     def delete(self):
         selected_item = self.tree.selection()[0]
-        base_url = 'https://filachifrudos-default-rtdb.firebaseio.com/pedido.json'
+        base_url = "https://filachifrudos-default-rtdb.firebaseio.com/pedido/"
         
         # Delete, Essa merda não deleta do banco de dados, apenas da treeview! infernooooooooo
         url = f'{base_url}{selected_item}.json'
         requests.delete(url)
+        print(url)
         self.tree.delete(selected_item)
    
     def on_select(self, event):

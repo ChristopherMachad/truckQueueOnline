@@ -7,7 +7,7 @@ import tkinter.messagebox as messagebox
 import requests
 
 
-class TASAINDODAJAULAOMONSTRO():
+class Mainprogram():
      
 
     
@@ -129,4 +129,4 @@ class TASAINDODAJAULAOMONSTRO():
         self.tree.set(selected_item, column=1, value=new_value[1])
         self.tree.config(selectmode='none') # desabilita a edição  
 
-program = TASAINDODAJAULAOMONSTRO()
+program = Mainprogram()

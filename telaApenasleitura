@@ -13,7 +13,7 @@ import requests
 class TASAINDODAJAULAOMONSTRO():
     def loop_att(self):
         self.att()
-        self.tela.after(1, self.loop_att) # 5000 milliseconds = 5 seconds
+        self.tela.after(5000, self.loop_att) # 5000 milliseconds = 5 seconds
 
     
     def __init__(self):
@@ -23,18 +23,13 @@ class TASAINDODAJAULAOMONSTRO():
 
         self.tela = Tk()
         self.tela.geometry('600x600')
-        #self.tela.resizable(width=FALSE, height=FALSE)
-        self.img = PhotoImage(file=r'C:\Users\chris\OneDrive\Área de Trabalho\waitonline\frontend_fila.png')
+        self.tela.resizable(width=FALSE, height=FALSE)
+        self.img = PhotoImage(file=r'frontend_fila.png')
         
           #frames 
         
         self.frame_tela = Label(self.tela, image= self.img)
         self.frame_tela.pack()
-
-        self.atualiza_button = Button( width=10, bd= 0, command = self.loop_att, bg = 'black', fg= 'white')
-        self.atualiza_button.place( x = 100, y = 486, height=20)
-        
-        
 
         #tabelas Treeview. Tem vida própria. Não entendi o motivo mas só funciona se o frame for o usado. Não consigo movimentar ela direito.
         self.tree = Treeview(self.tela, columns=("plate", "transp"))
@@ -45,11 +40,11 @@ class TASAINDODAJAULAOMONSTRO():
         self.tree.column("#0", anchor= 'e',  width=5, minwidth=50, stretch=False)
         self.tree.column("plate", width=100, minwidth=50, stretch=False)
         self.tree.column("transp", width=100, minwidth=50, stretch=False)
-        self.tree.place (x = 50, y=100, width=500)
+        self.tree.place (x = 0, y=100, width=500)
         
         self.att()
         
-        self.tela.after(100000, self.loop_att) # 2000 milliseconds = 2 seconds
+        self.tela.after(5000, self.loop_att) # 2000 milliseconds = 2 seconds
         # deixa a tela sempre em primeiro plano( para ediçao de imagem) self.tela.attributes("-topmost", True)
         self.tela.mainloop()
 

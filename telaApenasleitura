@@ -32,16 +32,21 @@ class TASAINDODAJAULAOMONSTRO():
         self.frame_tela.pack()
 
         #tabelas Treeview. Tem vida própria. Não entendi o motivo mas só funciona se o frame for o usado. Não consigo movimentar ela direito.
-        self.tree = Treeview(self.tela, columns=("plate", "transp"))
+        self.tree = Treeview(self.tela, columns=("plate", "transp", "motorista", "produto", "Status"))
         
         self.tree.heading("#0", text="ID")
         self.tree.heading("plate", text="Placa")
         self.tree.heading("transp", text="Transportadora")
+        self.tree.heading("motorista", text = "Motorista")
+        self.tree.heading("produto", text= "Produto")
+        self.tree.heading("Status", text = "Status")
         self.tree.column("#0", anchor= 'e',  width=5, minwidth=50, stretch=False)
-        self.tree.column("plate", width=100, minwidth=50, stretch=False)
-        self.tree.column("transp", width=100, minwidth=50, stretch=False)
-        self.tree.place (x = 0, y=100, width=500)
-        
+        self.tree.column("plate", width=60, minwidth=50)
+        self.tree.column("transp", width=90, minwidth=50, stretch=False)
+        self.tree.column("motorista", width=70)
+        self.tree.column("produto", width=60)
+        self.tree.column("Status", width = 210)
+        self.tree.place (x = 2, y=85, width= 422)
         self.att()
         
         self.tela.after(5000, self.loop_att) # 2000 milliseconds = 2 seconds
@@ -55,11 +60,14 @@ class TASAINDODAJAULAOMONSTRO():
         url = "https://filachifrudos-default-rtdb.firebaseio.com/pedido.json"
         response = requests.get(url)
         data = response.json()
-        self.tree.delete(*self.tree.get_children())
+
         for order_id, order_data in data.items():
             if not self.tree.exists(order_id):
                 self.tree.insert("", "end", order_id, text=order_id)
                 self.tree.set(order_id, "plate", order_data["plate"])
                 self.tree.set(order_id, "transp", order_data["transp"])
+                self.tree.set(order_id, "produto", order_data["produto"])
+                self.tree.set(order_id, "motorista", order_data["motorista"])
+                self.tree.set(order_id, "Status", order_data ["status"])
 
 program = TASAINDODAJAULAOMONSTRO()

@@ -48,8 +48,8 @@ class TASAINDODAJAULAOMONSTRO():
         self.tree.column("Status", width = 210)
         self.tree.place (x = 2, y=85, width= 422)
         self.att()
-        
-        self.tela.after(5000, self.loop_att) # 2000 milliseconds = 2 seconds
+        self.loop_att()
+        #self.tela.after(5000, self.loop_att) # 2000 milliseconds = 2 seconds
         # deixa a tela sempre em primeiro plano( para ediçao de imagem) self.tela.attributes("-topmost", True)
         self.tela.mainloop()
 
@@ -60,6 +60,9 @@ class TASAINDODAJAULAOMONSTRO():
         url = "https://filachifrudos-default-rtdb.firebaseio.com/pedido.json"
         response = requests.get(url)
         data = response.json()
+        
+        for item in self.tree.get_children():
+            self.tree.delete(item)
 
         for order_id, order_data in data.items():
             if not self.tree.exists(order_id):
